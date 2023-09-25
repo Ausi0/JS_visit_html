@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방명록 페이지 수행</title>
+    <style>
+        body{
+            background-color: pink;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .Con{
+            background-color: white;
+            width: 500px;
+            height: 700px;
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #message{
+            margin-top: 50px;
+            width: 350px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        function M_submit(){
+            var new_M = document.createElement("div");
+            new_M.innerHTML = document.getElementById("message").value;
+            new_M.onclick = M_remove;
+            document.getElementById("M_list").appendChild(new_M);
+            M_save();
+        }
+        function M_remove(){
+            document.getElementById("M_list").removeChild(this);
+            M_save();
+        }
+        function M_save(){
+            localStorage.save_M_list = document.getElementById("M_list").innerHTML;
+        }
+        function M_load(){
+            document.getElementById("M_list").innerHTML = localStorage.save_M_list;
+            for(var i=0;i<M_list.children.length;i++){
+                M_list.children[i].onclick = M_remove;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Mt page에 오신 것을 환영합니다.</h2>
+    <div class="Con">
+        <input id="message" type="text">
+        <div class="B_Con">
+            <input id="submit" type="button" value="입력" onclick="M_submit();">
+        </div>
+        <div id="M_list">
+            <script>
+                if(localStorage.save_M_list){
+                    M_load();
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
